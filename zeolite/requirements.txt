@@ -1,3 +1,6 @@
-flask 
+flask
 flask_wtf
+flask_login
+wtforms
+flask_sqlalchemy
 pymysql
