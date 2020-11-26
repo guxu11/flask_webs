@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zeolite Database</title>
+<link rel="stylesheet" href="{{ url_for('static',filename="scripts/bootstrap-3.3.7/dist/css/bootstrap.min.css")}}">
+<link rel="stylesheet" href="{{ url_for('static',filename="css/index.css")}}">
+<script src="{{ url_for('static',filename="scripts/bootstrap-3.3.7/js/tests/vendor/jquery.min.js")}}"></script>
+<script src="{{ url_for('static',filename="scripts/bootstrap-3.3.7/dist/js/bootstrap.min.js")}}"></script>
+
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background: #6a005f">
+	<div class="container">
+		<div class="navbar-header">
+			<a href="#" class="navbar-brand" style="color: white">Zeolite</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/">主页</a></li>
+
+				<li><a href="/XGboost/cn"  style="color: white">XGBoost预测的结合能</a></li>
+				<li><a href="/DIY/cn"  style="color: white">DIY 在线预测</a></li>
+                <li><a href="/DFT/cn"  style="color: white">DFT/PBE计算的结合能</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated %}
+                <li><a href="/login"  style="color: white">退出登录</a></li>
+                {% else %}
+				<li><a href="/login"  style="color: white">注册/登录</a></li>
+                {% endif %}
+				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="color: white">中文<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="/index/en">English</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+	
+<div class="container">
+	<div class="row">
+	<div class="introduction">
+		<div class="col-md-6">
+            <h1 style="text-align: center"><span style="font-family: 'SimHei'">沸石分子筛吸附数据库</span></h1>
+			<p class="lead"> &nbsp; &nbsp;&nbsp;&nbsp; 欢迎使用沸石分子筛吸附数据库，用于预测分子筛吸附氮气的结合能。数据库中包含了基于有效吸附空间（V<sub>eff</sub>）、孔道最大包含球直径（PLD）、Si-O-Si最小二乘距离（R<sub>DLS</sub>）三个描述符和XGBoost算法，预测的20万个（实验已制备的、理论预测的）分子筛与氮气分子的结合能数据。用户也可以自行输入V<sub>eff</sub>、PLD、R<sub>DLS</sub>三个描述符，进行DIY在线预测。数据库中也包含了DFT/PBE计算得到的结合能数据，与机器学习预测得到的结合能数据相关系数为0.92。<br>
+            </p>
+        </div>
+		<div class="col-md-6" style="background: url({{ url_for('static',filename="images/bk30.png") }}) no-repeat center 0">
+            <p class="lead">
+                <br>
+                &nbsp; &nbsp;&nbsp;&nbsp;数据库由南京大学化学化工学院马晶教授课题组和计算机软件新技术国家重点实验室高阳教授课题组联合开发，得到了国家重点研究开发项目(2017YFB0702601)、国家自然科学基金(21673111、21873045)的资助。<br>&nbsp; &nbsp;&nbsp;&nbsp;请按照下列格式引用沸石分子筛吸附数据库：Y. Gu, Z. Liu, C. Yu, X. Gu, L. Xu, Y. Gao, J. Ma, <i>J. Phys. Chem. C</i> <b>2020</b>, 124, 9314-9328.<br>
+                &nbsp; &nbsp;&nbsp;&nbsp;如果需要所有数据，请签订<a href="{{ url_for('static',filename="license.pdf") }}" download="license">用户协议</a>，扫描并发送至majing@nju.edu.cn
+			</p>
+        </div>
+		
+	</div>
+	</div>
+</div>
+
+
+<div class="navbar-fixed-bottom" style="margin-bottom: 0;background-color: rgba(106,0,95,1);height: 40px;text-align: center">
+    <span style="color: white;position:relative;top: 10px;font-size: 10px"><a style="color: white" href="https://itcc.nju.edu.cn/~majing/" target="_blank">南京大学理论与计算化学研究所</a>   &nbsp; &nbsp;&nbsp;邮箱：majing@nju.edu.cn</span>
+</div>
+
+</body>
+</html>

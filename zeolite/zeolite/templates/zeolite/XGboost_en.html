@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Zeolite Database</title>
+<link rel="stylesheet" href="{{ url_for('static',filename="scripts/bootstrap-3.3.7/dist/css/bootstrap.min.css")}}">
+<link rel="stylesheet" href="{{ url_for('static',filename="css/index.css")}}">
+<script src="{{ url_for('static',filename="scripts/bootstrap-3.3.7/js/tests/vendor/jquery.min.js")}}"></script>
+<script src="{{ url_for('static',filename="scripts/bootstrap-3.3.7/dist/js/bootstrap.min.js")}}"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background: #6a005f">
+	<div class="container">
+		<div class="navbar-header">
+			<a href="#" class="navbar-brand" style="color: white">Zeolite</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/index/en"  style="color: white">Home</a></li>
+
+				<li class="active"><a href="/XGboost/en">Binding energies predicted by XGBoost</a></li>
+				<li><a href="/DIY/en"  style="color: white">DIY online prediction</a></li>
+                <li><a href="/DFT/en"  style="color: white">DFT/PBE binding energies</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				{% if current_user.is_authenticated %}
+                <li><a href="/login"  style="color: white">logout</a></li>
+                {% else %}
+				<li><a href="/login"  style="color: white">login</a></li>
+                {% endif %}
+				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"  style="color: white">English<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="/XGboost/cn">中文</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h2><small>Binding energies for 248 known zeolites</small></h2>
+		</div>
+		<div class="col-md-12">
+			<br>
+			<h4>Enter(AEI, AEL...)：</h4>
+		</div>
+		<form role="form" id="known" method="POST">
+		<div class="form-group">
+			<div class="col-md-4">
+				<!--input type="text" class="form-control" placeholder="AEI"-->
+                {{ xg_k_form.csrf_token }}
+                {{ xg_k_form.name(class="form-control") }}
+			</div>
+			<div class="col-md-8">
+				<!--button type="submit" class="btn btn-default">查询</button-->
+                {% if current_user.is_authenticated %}
+                {{ xg_k_form.submit1(class="btn btn-default") }}
+                {% else %}
+                <span class="btn btn-default" onclick="tip()">Search</span>
+                {% endif %}
+			</div>
+		</div>
+		</form>
+		<div class="col-md-12">
+			<br>
+            <h4>Result：<span style="color: red">{{ err1 }}</span></h4>
+			<table align="left" style="text-align: center" class="table-bordered">
+					<tr style="background: rgba(0,0,0,0.05)">
+						<td id="Zeolite" width="80px" height="50px">Zeolite</td>
+						<td id="Veff" width="80px" height="50px">V<sub>eff</sub></td>
+						<td id="PLD(Å)" width="80px" height="50px">PLD(Å)</td>
+						<td id="RDLS" width="80px" height="50px">R<sub>DLS</sub></td>
+						<td id="Ebmax" width="80px" height="50px">E<sub>b,max</sub><sup>DFT</sup><br>(kcal/mol)</td>
+					</tr>
+					<tr>
+						<td id="Zeolite1" height="40px">{{ data1[0] }}</td>
+						<td id="Veff1" height="40px">{{ data1[1] }}</td>
+						<td id="PLD(Å)1" height="40px">{{ data1[2] }}</td>
+						<td id="RDLS1" height="40px">{{ data1[3] }}</td>
+						<td id="Ebmax1" height="40px">{{ data1[4] }}</td>
+					</tr>
+			</table>
+		</div>
+		<div class="col-md-12">
+            <br><br><br>
+			<hr class="hr" style="background-color:#6a005f;height: 1px;width:100%;border: none;"/>
+		</div>
+
+
+	</div>
+
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h2><small>Binding energies for 200,181 hypothetical zeolites</small></h2>
+		</div>
+		<div class="col-md-12">
+			<br>
+			<h4>Enter：</h4>
+		</div>
+		<form role="form" id="unknown" class="form-horizontal" method="POST">
+		<div class="form-group">
+			<label class="col-md-1 control-label">V<sub>eff</sub> :</label>
+			<div class="col-md-3">
+                {{ xg_uk_form.csrf_token }}
+                {{ xg_uk_form.veff(class='form-control') }}
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">PLD(Å) :</label>
+			<div class="col-md-3">
+                {{ xg_uk_form.pld(class='form-control') }}
+			</div>
+			<div class="col-md-8">
+                {% if current_user.is_authenticated %}
+                {{ xg_uk_form.submit2(class="btn btn-default") }}
+                {% else %}
+                <span class="btn btn-default" onclick="tip()">Search</span>
+                {% endif %}
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-1 control-label">R<sub>DLS</sub> :</label>
+			<div class="col-md-3">
+                {{ xg_uk_form.rdls(class='form-control') }}
+			</div>
+		</div>
+
+
+
+		</form>
+		<div class="col-md-12">
+			<br>
+            <h4>Result：<span style="color: red">{{ err2 }}</span></h4>
+			<table align="left" style="text-align: center" class="table-bordered">
+					<tr style="background: rgba(0,0,0,0.05)">
+						<td id="Veff_u" width="80px" height="50px">V<sub>eff</sub></td>
+						<td id="PLD_u" width="80px" height="50px">PLD(Å)</td>
+						<td id="RDLS_u" width="80px" height="50px">R<sub>DLS</sub></td>
+						<td id="Ebmax_u" width="80px" height="50px">E<sub>b,max</sub><br>(kcal/mol)</td>
+					</tr>
+					<tr>
+						<td id="Veff_u1" height="40px">{{ data2[0] }}</td>
+						<td id="PLD_u1" height="40px">{{ data2[1] }}</td>
+						<td id="RDLS_u1" height="40px">{{ data2[2] }}</td>
+						<td id="Ebmax_u1" height="40px">{{ data2[3] }}</td>
+					</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="navbar-fixed-bottom" style="margin-bottom: 0;background-color: rgba(106,0,95,1);height: 40px;text-align: center">
+    <span style="color: white;position:relative;top: 10px;font-size: 10px"><a style="color: white" href="https://itcc.nju.edu.cn/~majing/" target="_blank">Insititute of Theoretical and Computational Chemistry of Nanjing University</a>   &nbsp; &nbsp;&nbsp;E-mail：majing@nju.edu.cn</span>
+</div>
+<script type="text/javascript">
+    function tip() {
+        alert("Please Login！")
+    }
+</script>
+</body>
+</html>
