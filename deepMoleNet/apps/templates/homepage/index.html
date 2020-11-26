@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>DeepMoleNet</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/pricing/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{{url_for('static',filename='assets/dist/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='pricing.css')}}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <h5 class="my-0 mr-md-auto font-weight-normal">DeepMoleNet</h5>
+{% if current_user.is_authenticated %}
+      Welcome! {{user_name}}
+      &nbsp;  &nbsp;&nbsp;&nbsp;
+      <a class="btn btn-outline-primary" href="/login">Logout</a>
+{% else %}
+    <a class="btn btn-outline-primary" href="/login">Login</a>
+{% endif %}
+</div>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">DeepMoleNet</h1>
+  <p class="lead" style="text-align:left">&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;DeepMoleNet is a deep learning package for molecular properties prediction. It is developed with a multi-level attention mechanism to enable chemical interpretable insights being fused into multi-task learning through (1) weighting contributions from various atoms and (2) taking the atom-centered symmetry functions (ACSFs) as the teacher descriptor, rather than using ACSFs as input in the conventional way. The properties including dipole moment, HOMO, and Gibbs free energy within chemical accuracy are achieved by using multiple benchmarks, both at the equilibrium and non-equilibrium geometries.<br>
+&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;To cite this algorithm, please reference: Liu, Ziteng, et al. "Transferable multi-level attention neural network for accurate prediction of quantum chemistry properties via multi-task learning." ChemRxiv 12588170 (2020): v1.<br>
+    &nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;To request the code and data, please complete the <a href="#" download="{{url_for('static',filename='license-deepmolenet.pdf')}}">LICENSE FORM</a>, scan and email it to majing@nju.edu.cn.</p>
+</div>
+
+<div class="container">
+  <div class="card-deck mb-3 text-center" style="margin:auto 15% auto 15%">
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Instruction</h4>
+      </div>
+      <div class="card-body">
+
+        <ul class="list-unstyled mt-3 mb-4" style="text-align:left; padding:1% 5% 1% 5%">
+          <li>1. unzip the zip file and make sure all packagement in the <code>requirement.txt</code> file are installed;</li>
+          <li>2. put molecule sdf files in the <code>.\data-bin\raw\dev</code>, with its sdf file name and all 12 properties saved in <code>.\data-bin\raw\dev_target.csv</code> in templet.</li>
+          <li>3. run the code, <code>python DeepMoleNet.py</code></li>
+
+        </ul>
+        {% if current_user.is_authenticated %}
+        <a type="button" class="btn btn-lg btn-primary" href="#" download="2021125.zip">Download</a>
+        {% else %}
+        <a type="button" class="btn btn-lg btn-primary" href="#" onclick="tip()">Download</a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+      <div class="col-12 col-md">
+        <img class="mb-2" src="{{url_for('static',filename='images/nju.png')}}" alt="" width="20" height="24">
+        <small class="d-block mb-3 text-muted">Nanjing University</small>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Institution</h5>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="https://itcc.nju.edu.cn/majing/" target="_blank">Institute of Theoretical and Computational Chemistry</a></li>
+
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>Contact Us</h5>
+        <ul class="list-unstyled text-small">
+
+          <li><b>E-mail:</b>  majing@nju.edu.cn</li>
+
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>
+  <script type="text/javascript">
+        function tip() {
+        alert("Please Login ！")
+    }
+  </script>
+</body>
+</html>

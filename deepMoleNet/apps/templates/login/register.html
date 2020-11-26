@@ -1,0 +1,43 @@
+{% extends "login/layout.html" %}
+{% block content %}
+
+    <div class="login-page">
+		<div class="form">
+		  <form class="register-form" method="POST"  name="register" enctype="multipart/form-data">
+
+			<!--input type="text" placeholder="User name"-->
+            {{form.username}}
+            {% for err in form.username.errors %}
+                <p style="font-size: 12px;color: red;text-align: left">{{ err }}</p>
+            {% endfor %}
+            {{form.email}}
+            {% for err in form.email.errors %}
+                <p style="font-size: 12px;color: red;text-align: left">{{ err }}</p>
+            {% endfor %}
+            {% for message in get_flashed_messages(category_filter=['err']) %}
+                <p style="font-size: 12px;text-align: left;color: red">{{ message }}</p>
+            {% endfor %}
+            {{form.password}}
+            {% for err in form.password.errors %}
+                <p style="font-size:12px;color: red;text-align: left">{{ err }}</p>
+            {% endfor %}
+            {{form.re_enter}}
+            {% for err in form.re_enter.errors %}
+                <p style="font-size:12px;color: red;text-align: left">{{ err }}</p>
+            {% endfor %}
+
+            <!--input type="file" name="license"-->
+          {{ form.license }}
+
+            {{ form.csrf_token }}
+              <button>Register</button>
+            {% for message in get_flashed_messages(category_filter=['ok']) %}
+                <p style="font-size: 15px;text-align: center">{{ message }}</p>
+            {% endfor %}
+
+			<p class="message">Already Registered ? <a href='/login'>Login</a></p>
+		  </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+        <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+        <style type="text/css">button
+        {  text-transform: uppercase;
+        outline: 0;
+        background: rgba(106,0,95,0.5);
+        width: 100%;
+        border: none;
+        padding: 15px;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        transition: .5s;
+        }
+        button:hover,.form button:active{
+	background:rgba(106,0,95,1.00);
+	border: none;
+}
+    </style>
+
+
+</head>
+<body>
+
+    <div id="top" align="center">
+        <img id="top_img" class="img " src="{{url_for('static',filename = 'images/u0.svg')}}"/>
+    </div>
+
+          <!-- bottom -->
+    <div id="bottom" >
+        <img id="bottom_img" class="img " src="{{url_for('static',filename = 'images/u1.svg')}}"/>
+    </div>
+
+    {%   block content %}
+
+    {% endblock %}
+
+
+    <div class="instruction" id="en">
+		<div class="instructionText">
+            <br>
+            <h2><b>Welcome to DeepMoleNet！</b></h2> <br>
+
+            <span style="font-size:22px ">Instructions：</span>
+                <ol style="color: rgba(0,0,0,0.5)">
+            <li><span style="font-size: 18px">Users must sign up to use the services.</span><br></li>
+                    <li><span style="font-size: 18px">In addition to filling in the basic information, the user should also fill in and scan a LICENSE FORM and upload the scanned copy in the registration box on the right.<span style="color: black"><b>We give permission after the audit, then users can successfully log in.</b></span>If the LICENSE FORM is not uploaded or the information is not true, it cannot be approved. Usually after the user uploads, we review it within 24 hours.</span><br></li>
+
+                 </ol>
+
+            <br><a href="{{ url_for('static',filename='license.pdf') }}" download="license">LICENSE FORM Download</a>
+		</div>
+	</div>
+
+
+</body>
+
+</html>
