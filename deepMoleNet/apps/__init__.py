@@ -4,9 +4,9 @@ from apps.utils import create_folder
 
 app = Flask(__name__)
 
-app.debug = True
+app.debug = False
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@106.15.196.160/DeepMoleNet'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:pwd@127.0.0.1/DeepMoleNet'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 APPS_DIR = os.path.dirname(__file__)
