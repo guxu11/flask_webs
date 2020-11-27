@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 app.debug = False
 
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@106.15.196.160/zeolite'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:pwd@120.0.0.1/zeolite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 
 APPS_DIR = os.path.dirname(__file__)
